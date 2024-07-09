@@ -9,13 +9,13 @@ deepspeed src/training/train.py \
     --num_lora_modules -1 \
     --deepspeed scripts/zero3.json \
     --model_id microsoft/Phi-3-vision-128k-instruct \
-    --data_path /home/workspace/description/traffic_158k.json \
-    --image_folder /home/workspace/dataset \
+    --data_path /home/azureuser/localfiles/repos/bill-of-lading-classifier/data/finetune/train/train.json \
+    --image_folder /home/azureuser/localfiles/repos/bill-of-lading-classifier/data/finetune/train/images \
     --tune_img_projector True \
     --freeze_vision_tower True \
     --bf16 True \
-    --output_dir output/testing \
-    --num_train_epochs 1 \
+    --output_dir /home/azureuser/localfiles/repos/bill-of-lading-classifier/models/run01 \
+    --num_train_epochs 3 \
     --per_device_train_batch_size 4\
     --gradient_accumulation_steps 8 \
     --learning_rate 2e-5 \
@@ -26,6 +26,6 @@ deepspeed src/training/train.py \
     --logging_steps 1 \
     --tf32 True \
     --gradient_checkpointing True \
-    --report_to wandb \
+    --report_to none \
     --lazy_preprocess True \
     --dataloader_num_workers 4
