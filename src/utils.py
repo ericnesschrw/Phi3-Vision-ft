@@ -5,7 +5,7 @@ from src.phi3_vision import (
     Phi3VImageProcessor,
 )
 import torch
-from transformers import BitsAndBytesConfig
+from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoProcessor
 import warnings
 
 

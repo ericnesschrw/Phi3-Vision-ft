@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PYTHONPATH=src:$PYTHONPATH
+
 deepspeed src/training/train.py \
     --lora_enable True \
     --lora_namespan_exclude "['lm_head']" \

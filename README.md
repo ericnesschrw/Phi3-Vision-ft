@@ -4,6 +4,7 @@ This repository contains a script for training the [Phi3-Vision model](https://h
 
 ## Update
 
+- [2024/07/03] Added WebUI demo.
 - [2024/06/27] 🔥Supports multi-image training and inference.
 - [2024/06/27] Supports saving the model into safetensor.
 
@@ -20,6 +21,7 @@ This repository contains a script for training the [Phi3-Vision model](https://h
     - [Merge LoRA Weights](#merge-lora-weights)
 - [Inference](#inference)
   - [CLI Inference](#cli-inference)
+  - [WebUI Demo](#gradio-infernce-webui)
 
 ## Supported Features
 
@@ -169,14 +171,10 @@ bash scripts/finetune_lora.sh
 #### Merge LoRA Weights
 
 ```
-python src/merge_lora_weights.py \
-    --model-path /Your/path/to/saved/weights \
-    --model-base microsoft/Phi-3-vision-128k-instruct \
-    --save-model-path /Your/path/to/save \
-    --safe-serialization
+bash scripts/merge_lora.sh
 ```
 
-**Note:** Remember to replace the paths in `finetune.sh` or `finetune_lora.sh` with your specific paths.
+**Note:** Remember to replace the paths in `finetune.sh` or `finetune_lora.sh` with your specific paths. (Also in `merge_lora.sh` when using LoRA.)
 
 #### Issue for libcudnn error
 
@@ -189,6 +187,8 @@ You could see this [issue](https://github.com/andimarafioti/florence2-finetuning
 
 ## Inference
 
+**Note:** You should use the merged weight when trained with LoRA.
+
 ### CLI Inference
 
 ```
@@ -199,12 +199,34 @@ python -m src.serve.cli \
 
 You can set some other generation configs like `repetition_penalty`, `temperature` etc.
 
+### Gradio Infernce (WebUI)
+
+1. Install gradio
+
+```
+pip install gradio
+```
+
+2. Launch app
+
+```
+python -m src.serve.app \
+    --model-path /path/to/merged/weight
+```
+
+You can launch gradio based demo with this command. This can also set some other generation configs like `repetition_penalty`, `temperature` etc.
+
 ## TODO
 
 - [x] Saving in safetensor
 - [x] Supporting multi-image training and inference.
-- [ ] Demo with WebUI
-- [ ] Setting different learning rate for `img_projector` and `vision_model`
+- [x] Demo with WebUI
+- [ ] Converting into gguf format.
+
+## Known Issues
+
+- [libcudnn issue](#issue-for-libcudnn-error)
+- Does not support text-only data.
 
 ## License
 

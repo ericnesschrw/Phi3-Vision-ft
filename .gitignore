@@ -171,3 +171,5 @@ logs/*.log
 testing.ipynb
 
 wandb/*
+convert_gguf
+
